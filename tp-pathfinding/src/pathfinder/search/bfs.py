@@ -27,16 +27,16 @@ class BreadthFirstSearch:
         frontier.add(root)
 
         while not frontier.is_empty():
-        # 1. Sacamos el nodo de la frontera
+        # Sacamos el nodo de la frontera
             node = frontier.remove() 
 
-            # 2. Expandimos las acciones posibles desde el estado actual
+            # Expandimos las acciones posibles desde el estado actual
             for action in grid.actions(node.state): 
 
-                # 3. Obtenemos el estado resultante
+                # Obtenemos el estado resultante
                 successor = grid.result(node.state, action) 
 
-                # 4. Control de Grafo:
+                # Control de Grafo:
                 if successor not in reached:
                     # Marcamos como alcanzado inmediatamente para evitar redundancia 
                     reached[successor] = True 
@@ -51,11 +51,11 @@ class BreadthFirstSearch:
                         action=action
                     )
 
-                    # 6. Test objetivo
+                    # Test objetivo
                     if grid.objective_test(successor):
                         return Solution(child, reached) # [cite: 45]
 
-                    # 7. Si no es el objetivo, lo sumamos a la fila para expandirlo luego
+                    # Si no es el objetivo, lo sumamos a la fila para expandirlo luego
                     frontier.add(child) # [cite: 47]
 
         return NoSolution(reached)
