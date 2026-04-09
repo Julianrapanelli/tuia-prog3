@@ -21,8 +21,35 @@ class DepthFirstSearch:
         # Initialize expanded with the empty dictionary
         expanded = dict()
 
-        # Initialize frontier with the root node
-        # TODO Complete the rest!!
-        # ...
+        frontier = StackFrontier()
+        frontier.add(root)
 
+        while not frontier.is_empty():
+            # Sacamos el nodo (LIFO)
+            node = frontier.remove()
+
+            # Test de objetivo:
+            if grid.objective_test(node.state):
+                return Solution(node, expanded)
+
+            # Si no lo expandimos antes, lo hacemos ahora
+            if node.state not in expanded:
+                expanded[node.state] = True
+
+                # Expandimos sucesores
+                for action in grid.actions(node.state):
+                    successor_state = grid.result(node.state, action)
+
+                    # Creamos el nodo hijo
+                    child = Node(
+                        "",
+                        successor_state,
+                        cost=node.cost + grid.individual_cost(node.state, action),
+                        parent=node,
+                        action=action
+                    )
+
+                    # Lo agregamos a la frontera si no fue expandido
+                    if child.state not in expanded:
+                        frontier.add(child)
         return NoSolution(expanded)
