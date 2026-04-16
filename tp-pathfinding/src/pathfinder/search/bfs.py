@@ -39,7 +39,7 @@ class BreadthFirstSearch:
                 # Control de Grafo:
                 if successor not in reached:
                     # Marcamos como alcanzado inmediatamente para evitar redundancia 
-                    reached[successor] = True 
+                    reached[successor] = True
 
                     # Creamos el nuevo nodo hijo
                     # El costo es: costo del padre + costo de este paso particular
