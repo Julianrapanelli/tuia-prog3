@@ -109,5 +109,22 @@ class Grid:
         new_pos = self.result(pos, action)
         return self.grid[new_pos[0]][new_pos[1]].cost
 
+    def heuristic(self, state: tuple[int, int]) -> float:
+        """
+        Calcula la distancia heurística desde un estado actual hasta el objetivo.
+        Utiliza la Distancia Manhattan para cuadrículas 2D.
+        
+        Args:
+            state (tuple[int, int]): Posición actual (fila, columna)
+            
+        Returns:
+            float: Costo estimado hasta el objetivo
+        """
+        current_row, current_col = state
+        end_row, end_col = self.end
+        
+        # Distancia Manhattan: |x1 - x2| + |y1 - y2|
+        return abs(current_row - end_row) + abs(current_col - end_col)
+
     def __repr__(self) -> str:
         return f"Grid([[...], ...], {self.initial}, {self.end})"
